@@ -25,12 +25,11 @@ int main() {
     int* py = &playerY;
     int* pHealth = &health;
 
-    cout << "Mini Hazine Oyunu 🎮\n";
-    cout << "W A S D ile hareket et. T = Hazine, E = Dusman, # = Duvar\n";
+    cout << "Mini Gem Game 🎮\n";
+    cout << "Move with W,A,S,D . T = Gem, E = Enemy, # = Obstackle\n";
 
     while (true) {
-        // Haritayı çiz
-        cout << "\nHarita:\n";
+        cout << "\nMap:\n";
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
                 if (x == *px && y == *py)
@@ -41,14 +40,14 @@ int main() {
             cout << endl;
         }
 
-        cout << "Can: " << *pHealth << endl;
-        cout << "Hareket (w/a/s/d), cikmak icin q: ";
+        cout << "Health: " << *pHealth << endl;
+        cout << "Move (w/a/s/d), press q for quit: ";
 
         char move;
         cin >> move;
 
         if (move == 'q') {
-            cout << "Oyundan cikiliyor...\n";
+            cout << "Exiting the game...\n";
             break;
         }
 
@@ -57,7 +56,7 @@ int main() {
 
         // Harita disina cikma kontrolu
         if (*px < 0 || *px >= SIZE || *py < 0 || *py >= SIZE) {
-            cout << "Harita disina cikamazsin!\n";
+            cout << "You can't go outside the map!\n";
             *px = oldX;
             *py = oldY;
             continue;
@@ -66,21 +65,21 @@ int main() {
         char tile = map[*py][*px];
 
         if (tile == '#') {
-            cout << "Duvara carptin!\n";
+            cout << "You hit the obstackle!\n";
             *px = oldX;
             *py = oldY;
         } 
         else if (tile == 'E') {
-            cout << "Dusmana denk geldin! Can -1\n";
+            cout << "You came across with you enemy! Health -1\n";
             (*pHealth)--;
 
             if (*pHealth <= 0) {
-                cout << "Oldun 💀 Oyun bitti.\n";
+                cout << "You dead 💀 Game is finished.\n";
                 break;
             }
         } 
         else if (tile == 'T') {
-            cout << "Hazineden buldun! Kazandin 🎉\n";
+            cout << "You found the gem! You won 🎉\n";
             break;
         }
     }
